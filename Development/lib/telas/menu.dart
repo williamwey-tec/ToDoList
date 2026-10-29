@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tema/cores.dart';
 import 'tela_calendario.dart';
 import 'tela_foco.dart';
 import 'tela_hoje.dart';
@@ -29,10 +30,6 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  static const Color _corPrimaria = Color(0xFF5B4BDB);
-  static const Color _corDestaqueFundo = Color(0xFFEDE9FE);
-  static const Color _corTextoSecundario = Color(0xFF6B7280);
-
   int _indiceSelecionado = 0;
 
   static const List<_ItemMenu> _itens = [
@@ -84,9 +81,9 @@ class _MenuState extends State<Menu> {
     final itemAtual = _itens[_indiceSelecionado];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: CoresApp.fundo,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: CoresApp.fundo,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
@@ -95,7 +92,7 @@ class _MenuState extends State<Menu> {
           builder: (context) => IconButton(
             icon: const Icon(
               Icons.menu_rounded,
-              color: Color(0xFF1F2937),
+              color: CoresApp.texto,
               size: 28,
             ),
             tooltip: 'Abrir menu de navegação',
@@ -105,7 +102,7 @@ class _MenuState extends State<Menu> {
         title: Text(
           itemAtual.titulo,
           style: const TextStyle(
-            color: Color(0xFF1F2937),
+            color: CoresApp.texto,
             fontSize: 20,
             fontWeight: FontWeight.w700,
           ),
@@ -120,12 +117,12 @@ class _MenuState extends State<Menu> {
                 });
               },
               style: IconButton.styleFrom(
-                backgroundColor: _corDestaqueFundo,
+                backgroundColor: CoresApp.principalSuave,
                 shape: const CircleBorder(),
               ),
               icon: const Icon(
                 Icons.notifications_none_rounded,
-                color: _corPrimaria,
+                color: CoresApp.principal,
               ),
               tooltip: 'Notificações',
             ),
@@ -133,7 +130,7 @@ class _MenuState extends State<Menu> {
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: CoresApp.superficie,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(24),
@@ -150,7 +147,7 @@ class _MenuState extends State<Menu> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: _corDestaqueFundo,
+                    color: CoresApp.principalSuave,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
@@ -159,12 +156,12 @@ class _MenuState extends State<Menu> {
                         width: 44,
                         height: 44,
                         decoration: const BoxDecoration(
-                          color: _corPrimaria,
+                          color: CoresApp.principal,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
                           Icons.bolt_rounded,
-                          color: Colors.white,
+                          color: CoresApp.sobrePrincipal,
                           size: 26,
                         ),
                       ),
@@ -176,7 +173,7 @@ class _MenuState extends State<Menu> {
                             Text(
                               'FlowTask',
                               style: TextStyle(
-                                color: Color(0xFF1F2937),
+                                color: CoresApp.texto,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -185,7 +182,7 @@ class _MenuState extends State<Menu> {
                             Text(
                               'Planejamento e Foco',
                               style: TextStyle(
-                                color: _corTextoSecundario,
+                                color: CoresApp.textoSecundario,
                                 fontSize: 13,
                               ),
                             ),
@@ -201,8 +198,8 @@ class _MenuState extends State<Menu> {
                 FilledButton.icon(
                   onPressed: _abrirNovaTarefa,
                   style: FilledButton.styleFrom(
-                    backgroundColor: _corPrimaria,
-                    foregroundColor: Colors.white,
+                    backgroundColor: CoresApp.principal,
+                    foregroundColor: CoresApp.sobrePrincipal,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28),
@@ -218,7 +215,7 @@ class _MenuState extends State<Menu> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Divider(height: 1, color: Color(0xFFE5E7EB)),
+                const Divider(height: 1, color: CoresApp.borda),
                 const SizedBox(height: 12),
 
                 // Lista de opções de navegação
@@ -232,7 +229,7 @@ class _MenuState extends State<Menu> {
 
                       return Material(
                         color: selecionado
-                            ? _corDestaqueFundo
+                            ? CoresApp.principalSuave
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(14),
                         child: InkWell(
@@ -248,8 +245,8 @@ class _MenuState extends State<Menu> {
                                 Icon(
                                   item.icone,
                                   color: selecionado
-                                      ? _corPrimaria
-                                      : _corTextoSecundario,
+                                      ? CoresApp.principal
+                                      : CoresApp.textoSecundario,
                                   size: 24,
                                 ),
                                 const SizedBox(width: 14),
@@ -257,8 +254,8 @@ class _MenuState extends State<Menu> {
                                   item.titulo,
                                   style: TextStyle(
                                     color: selecionado
-                                        ? _corPrimaria
-                                        : const Color(0xFF374151),
+                                        ? CoresApp.principal
+                                        : CoresApp.texto,
                                     fontSize: 15,
                                     fontWeight: selecionado
                                         ? FontWeight.w700

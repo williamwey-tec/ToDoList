@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tema/cores.dart';
 
 /// Indicador do progresso diário de tarefas concluídas e horas planejadas vs. realizadas.
 class IndicadorProgresso extends StatelessWidget {
@@ -6,12 +7,6 @@ class IndicadorProgresso extends StatelessWidget {
   final int totalTarefas;
   final String tempoPlanejado;
   final String tempoRealizado;
-
-  static const Color _corFundoCard = Color(0xFFEDE9FE);
-  static const Color _corPrimaria = Color(0xFF5B4BDB);
-  static const Color _corTrilhaBarra = Color(0xFFD5CEFA);
-  static const Color _corTextoPrincipal = Color(0xFF1F2937);
-  static const Color _corTextoSecundario = Color(0xFF6B7280);
 
   const IndicadorProgresso({
     super.key,
@@ -32,7 +27,7 @@ class IndicadorProgresso extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: _corFundoCard,
+        color: CoresApp.principalSuave,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -46,7 +41,7 @@ class IndicadorProgresso extends StatelessWidget {
               Text(
                 '$tarefasConcluidas de $totalTarefas tarefas concluídas',
                 style: const TextStyle(
-                  color: _corTextoPrincipal,
+                  color: CoresApp.texto,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
@@ -54,7 +49,7 @@ class IndicadorProgresso extends StatelessWidget {
               Text(
                 '$percentual%',
                 style: const TextStyle(
-                  color: _corPrimaria,
+                  color: CoresApp.principal,
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
@@ -69,8 +64,8 @@ class IndicadorProgresso extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progresso,
               minHeight: 8,
-              backgroundColor: _corTrilhaBarra,
-              valueColor: const AlwaysStoppedAnimation<Color>(_corPrimaria),
+              backgroundColor: CoresApp.borda,
+              valueColor: const AlwaysStoppedAnimation<Color>(CoresApp.principal),
             ),
           ),
           const SizedBox(height: 16),
@@ -85,7 +80,7 @@ class IndicadorProgresso extends StatelessWidget {
                     const Text(
                       'Planejado',
                       style: TextStyle(
-                        color: _corTextoSecundario,
+                        color: CoresApp.textoSecundario,
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -94,7 +89,7 @@ class IndicadorProgresso extends StatelessWidget {
                     Text(
                       tempoPlanejado,
                       style: const TextStyle(
-                        color: _corTextoPrincipal,
+                        color: CoresApp.texto,
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                       ),
@@ -109,7 +104,7 @@ class IndicadorProgresso extends StatelessWidget {
                     const Text(
                       'Realizado',
                       style: TextStyle(
-                        color: _corTextoSecundario,
+                        color: CoresApp.textoSecundario,
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -118,7 +113,7 @@ class IndicadorProgresso extends StatelessWidget {
                     Text(
                       tempoRealizado,
                       style: const TextStyle(
-                        color: _corPrimaria,
+                        color: CoresApp.principal,
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                       ),

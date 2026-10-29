@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import '../tema/cores.dart';
 
 /// Variações visuais do botão reutilizável do FlowTask.
 enum TipoBotao {
-  /// Fundo roxo (#5B4BDB) e texto branco (ex.: "+ Adicionar tarefa", "Iniciar").
+  /// Fundo roxo principal (`CoresApp.principal`) e texto branco (`CoresApp.sobrePrincipal`).
   primario,
 
-  /// Fundo cinza suave (#F3F4F6) e texto cinza escuro (ex.: "Pausar").
+  /// Fundo suave (`CoresApp.pendenteFundo`) e texto secundário (`CoresApp.pendente`).
   secundario,
 
-  /// Fundo branco com borda sutil e texto roxo (ex.: "Concluir tarefa").
+  /// Fundo de superfície (`CoresApp.superficie`) com borda (`CoresApp.borda`) e texto roxo (`CoresApp.principal`).
   contorno,
 }
 
@@ -19,11 +20,6 @@ class Botao extends StatelessWidget {
   final IconData? icone;
   final TipoBotao tipo;
   final bool larguraTotal;
-
-  static const Color _corPrimaria = Color(0xFF5B4BDB);
-  static const Color _corSecundariaFundo = Color(0xFFF3F4F6);
-  static const Color _corSecundariaTexto = Color(0xFF4B5563);
-  static const Color _corBordaContorno = Color(0xFFE5E7EB);
 
   const Botao({
     super.key,
@@ -42,17 +38,17 @@ class Botao extends StatelessWidget {
 
     switch (tipo) {
       case TipoBotao.primario:
-        corFundo = _corPrimaria;
-        corTexto = Colors.white;
+        corFundo = CoresApp.principal;
+        corTexto = CoresApp.sobrePrincipal;
         borda = BorderSide.none;
       case TipoBotao.secundario:
-        corFundo = _corSecundariaFundo;
-        corTexto = _corSecundariaTexto;
+        corFundo = CoresApp.pendenteFundo;
+        corTexto = CoresApp.pendente;
         borda = BorderSide.none;
       case TipoBotao.contorno:
-        corFundo = Colors.white;
-        corTexto = _corPrimaria;
-        borda = const BorderSide(color: _corBordaContorno, width: 1.2);
+        corFundo = CoresApp.superficie;
+        corTexto = CoresApp.principal;
+        borda = const BorderSide(color: CoresApp.borda, width: 1.2);
     }
 
     final estilo = ElevatedButton.styleFrom(
