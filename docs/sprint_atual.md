@@ -142,6 +142,10 @@ Estrutura de navegação e telas principais da aplicação:
 8. **Habilitação da Plataforma Web (`Development/web/`):** Inclusão do target Web no projeto Flutter para facilitar execução e testes rápidos de interface no navegador (`Chrome`/`Edge`).
 
 ### 🚧 Em Andamento / Ajustes Locais (Working Tree)
+- [x] Incorporar `origin/primeiro-menu` na `main` local preservando o tema e o ponto de entrada locais.
+- [x] Resolver as dependências após a integração.
+- [ ] Refatorar menu e widgets recebidos para consumir `TemaApp` e `CoresApp`.
+- **Estado local após a integração:** `main` em `084fea7`, sem envio ao remoto; tema e integração no `main.dart` ainda sem commit.
 - **Navegação Principal (`Development/lib/telas/menu.dart`), Widgets (`Development/lib/widgets/`) e Target Web (`Development/web/`):** Implementados localmente e validados com `flutter analyze` sem erros.
 - **Automação de Documentação de Sprint (`AGENTS.md` e `.agents/skills/documentador-sprint/SKILL.md`):**
   - Adicionados arquivos locais de diretrizes e skill para manter este relatório `docs/sprint_atual.md` sempre atualizado de forma incremental a cada entrega de código.
@@ -154,6 +158,13 @@ Estrutura de navegação e telas principais da aplicação:
 ---
 
 ## 5. Registro Incremental (Changelog da Sprint)
+### 📅 28/10/2026 (Incremento #6) — Integração local da branch primeiro-menu e preservação do tema
+- A branch `main` local foi atualizada por fast-forward de `405cc87` para `084fea7`, incorporando o conteúdo de `origin/primeiro-menu`: menu expansivo, componentes reutilizáveis, suporte web e documentação da sprint.
+- As alterações locais de `Development/lib/main.dart` e `Development/lib/tema/cores.dart` e `tema_app.dart` foram preservadas temporariamente com stash e restauradas após a integração, incluindo o estado de preparação dos arquivos.
+- O tema compartilhado continua aplicado no `main.dart`; os componentes recebidos ainda utilizam definições visuais próprias e sua refatoração para reutilizar o tema permanece pendente.
+- As dependências foram resolvidas com `flutter pub get --directory Development`.
+- Nenhum push foi realizado. A `main` local está um commit à frente de `origin/main`; as alterações locais do tema permanecem sem commit.
+- Validação da integração: `dart analyze lib` concluído sem problemas. Não foram executados testes ou compilação adicional neste incremento.
 
 ### 📅 28/10/2026 (Incremento #5) — Correção de Dependência SDK para Build Web (`pubspec.yaml`)
 - **Arquivo ajustado:** [`Development/pubspec.yaml`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/pubspec.yaml).
