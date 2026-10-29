@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tema/cores.dart';
 
 /// Níveis de prioridade de uma tarefa no FlowTask.
 enum PrioridadeTarefa {
@@ -26,23 +27,6 @@ class CardTarefa extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onAlternarStatus;
 
-  static const Color _corPrimaria = Color(0xFF5B4BDB);
-  static const Color _corFundoPausada = Color(0xFFEDE9FE);
-  static const Color _corBordaPausada = Color(0xFFC4B5FD);
-  static const Color _corBordaPadrao = Color(0xFFE5E7EB);
-
-  static const Color _corVerdeFundo = Color(0xFFE6F4EA);
-  static const Color _corVerdeTexto = Color(0xFF2E6F40);
-
-  static const Color _corAmareloFundo = Color(0xFFFEF3C7);
-  static const Color _corAmareloTexto = Color(0xFF854D0E);
-
-  static const Color _corVermelhoFundo = Color(0xFFFCE8E6);
-  static const Color _corVermelhoTexto = Color(0xFFB91C1C);
-
-  static const Color _corCinzaFundo = Color(0xFFF3F4F6);
-  static const Color _corCinzaTexto = Color(0xFF4B5563);
-
   const CardTarefa({
     super.key,
     required this.titulo,
@@ -61,7 +45,7 @@ class CardTarefa extends StatelessWidget {
     final bool isConcluida = status == StatusTarefa.concluida;
 
     return Material(
-      color: isPausada ? _corFundoPausada : Colors.white,
+      color: isPausada ? CoresApp.pausadaFundo : CoresApp.superficie,
       borderRadius: BorderRadius.circular(18),
       child: InkWell(
         onTap: onTap,
@@ -71,7 +55,7 @@ class CardTarefa extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: isPausada ? _corBordaPausada : _corBordaPadrao,
+              color: isPausada ? CoresApp.pausada : CoresApp.borda,
               width: 1.2,
             ),
           ),
@@ -98,7 +82,7 @@ class CardTarefa extends StatelessWidget {
                         Text(
                           '$horario · $duracaoEstimada',
                           style: const TextStyle(
-                            color: Color(0xFF6B7280),
+                            color: CoresApp.textoSecundario,
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
                           ),
@@ -107,7 +91,7 @@ class CardTarefa extends StatelessWidget {
                           Text(
                             tempoUsado!,
                             style: const TextStyle(
-                              color: Color(0xFF6B7280),
+                              color: CoresApp.textoSecundario,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -121,8 +105,8 @@ class CardTarefa extends StatelessWidget {
                       titulo,
                       style: TextStyle(
                         color: isConcluida
-                            ? const Color(0xFF6B7280)
-                            : const Color(0xFF1F2937),
+                            ? CoresApp.textoSecundario
+                            : CoresApp.texto,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
@@ -156,12 +140,12 @@ class CardTarefa extends StatelessWidget {
           width: 28,
           height: 28,
           decoration: const BoxDecoration(
-            color: _corVerdeTexto,
+            color: CoresApp.concluida,
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.check_rounded,
-            color: Colors.white,
+            color: CoresApp.sobrePrincipal,
             size: 18,
           ),
         );
@@ -170,12 +154,12 @@ class CardTarefa extends StatelessWidget {
           width: 28,
           height: 28,
           decoration: const BoxDecoration(
-            color: _corPrimaria,
+            color: CoresApp.pausada,
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.pause_rounded,
-            color: Colors.white,
+            color: CoresApp.sobrePrincipal,
             size: 18,
           ),
         );
@@ -187,7 +171,7 @@ class CardTarefa extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFF9CA3AF),
+              color: CoresApp.pendente,
               width: 1.8,
             ),
           ),
@@ -203,16 +187,16 @@ class CardTarefa extends StatelessWidget {
     switch (prioridade) {
       case PrioridadeTarefa.baixa:
         texto = 'Prioridade baixa';
-        corFundo = _corVerdeFundo;
-        corTexto = _corVerdeTexto;
+        corFundo = CoresApp.prioridadeBaixaFundo;
+        corTexto = CoresApp.prioridadeBaixa;
       case PrioridadeTarefa.media:
         texto = 'Prioridade média';
-        corFundo = _corAmareloFundo;
-        corTexto = _corAmareloTexto;
+        corFundo = CoresApp.prioridadeMediaFundo;
+        corTexto = CoresApp.prioridadeMedia;
       case PrioridadeTarefa.alta:
         texto = 'Prioridade alta';
-        corFundo = _corVermelhoFundo;
-        corTexto = _corVermelhoTexto;
+        corFundo = CoresApp.prioridadeAltaFundo;
+        corTexto = CoresApp.prioridadeAlta;
     }
 
     return _Badge(
@@ -227,20 +211,20 @@ class CardTarefa extends StatelessWidget {
       case StatusTarefa.concluida:
         return const _Badge(
           texto: 'Concluída',
-          corFundo: _corVerdeFundo,
-          corTexto: _corVerdeTexto,
+          corFundo: CoresApp.concluidaFundo,
+          corTexto: CoresApp.concluida,
         );
       case StatusTarefa.atrasada:
         return const _Badge(
           texto: 'Atrasada',
-          corFundo: _corVermelhoFundo,
-          corTexto: _corVermelhoTexto,
+          corFundo: CoresApp.atrasadaFundo,
+          corTexto: CoresApp.atrasada,
         );
       case StatusTarefa.pendente:
         return const _Badge(
           texto: 'Pendente',
-          corFundo: _corCinzaFundo,
-          corTexto: _corCinzaTexto,
+          corFundo: CoresApp.pendenteFundo,
+          corTexto: CoresApp.pendente,
         );
       case StatusTarefa.pausada:
         return const Padding(
@@ -248,7 +232,7 @@ class CardTarefa extends StatelessWidget {
           child: Text(
             'Pausada',
             style: TextStyle(
-              color: _corPrimaria,
+              color: CoresApp.pausada,
               fontSize: 12,
               fontWeight: FontWeight.w700,
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tema/cores.dart';
 
 /// Campo de formulário reutilizável no padrão visual do FlowTask
 /// (container branco arredondado com rótulo superior interno e ícone opcional).
@@ -13,11 +14,6 @@ class CampoTexto extends StatelessWidget {
   final int maxLinhas;
   final IconData? iconeSufixo;
   final TextInputType? tipoTeclado;
-
-  static const Color _corBorda = Color(0xFFE5E7EB);
-  static const Color _corPrimaria = Color(0xFF5B4BDB);
-  static const Color _corRotulo = Color(0xFF6B7280);
-  static const Color _corTexto = Color(0xFF1F2937);
 
   const CampoTexto({
     super.key,
@@ -40,9 +36,9 @@ class CampoTexto extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: CoresApp.superficie,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: _corBorda, width: 1.2),
+          border: Border.all(color: CoresApp.borda, width: 1.2),
         ),
         child: Row(
           crossAxisAlignment: maxLinhas > 1
@@ -57,7 +53,7 @@ class CampoTexto extends StatelessWidget {
                   Text(
                     rotulo,
                     style: const TextStyle(
-                      color: _corRotulo,
+                      color: CoresApp.textoSecundario,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -71,9 +67,9 @@ class CampoTexto extends StatelessWidget {
                     readOnly: somenteLeitura,
                     maxLines: maxLinhas,
                     keyboardType: tipoTeclado,
-                    cursorColor: _corPrimaria,
+                    cursorColor: CoresApp.principal,
                     style: const TextStyle(
-                      color: _corTexto,
+                      color: CoresApp.texto,
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                       height: 1.35,
@@ -84,7 +80,7 @@ class CampoTexto extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: dica,
                       hintStyle: const TextStyle(
-                        color: Color(0xFF9CA3AF),
+                        color: CoresApp.textoSecundario,
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                       ),
@@ -97,7 +93,7 @@ class CampoTexto extends StatelessWidget {
               const SizedBox(width: 8),
               Icon(
                 iconeSufixo,
-                color: _corRotulo,
+                color: CoresApp.textoSecundario,
                 size: 22,
               ),
             ],

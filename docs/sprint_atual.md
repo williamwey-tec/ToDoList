@@ -24,11 +24,13 @@ Até o momento, a equipe estruturou o repositório separando os artefatos de **D
 - [x] Configurar permissões nativas no `AndroidManifest.xml` para notificações, alarmes exatos, vibração e inicialização no boot.
 - [x] Criar a arquitetura base em camadas (`model`, `services`, `control`, `widgets`, `telas`) e configurar o ponto de entrada em `main.dart` apontando para o widget `Menu`.
 - [x] Estruturar a rotina de documentação incremental de sprint via agente (`AGENTS.md` e `.agents/skills/documentador-sprint/SKILL.md`).
+- [x] Centralizar a paleta de cores e tema do FlowTask em [`CoresApp`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/cores.dart) e [`TemaApp`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/tema_app.dart) e instituir o agente Guardião de Tema ([`.agents/skills/guardiao-tema/SKILL.md`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/.agents/skills/guardiao-tema/SKILL.md)).
 - [x] Implementar a navegação principal em [`Menu`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/menu.dart) com menu expansivo lateral (`Drawer`), `AppBar` customizada e alternância de telas via `IndexedStack`.
 - [x] Desenvolver os componentes visuais reutilizáveis ([`Botao`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/botao.dart), [`CampoTexto`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/campo_texto.dart), [`CardTarefa`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/card_tarefa.dart), [`IndicadorProgresso`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/indicador_progresso.dart)) seguindo o guia de estilo do FlowTask.
+- [x] Implementar a tela de Calendário ([`TelaCalendario`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_calendario.dart)) com calendário mensal interativo (`table_calendar`), marcadores de tarefas por dia e listagem segmentada entre tarefas ativas e concluídas.
 - [ ] Implementar a persistência SQLite (`BancoService`) e os modelos de dados (`Tarefa`, `Configuracoes`).
 - [ ] Implementar as regras de negócio nos controladores (`ControlTarefa`, `ControlFoco`) e serviços auxiliares (`NotificacaoService`, `ConfiguracoesService`).
-- [ ] Construir as interfaces definitivas das demais telas (`TelaHoje`, `TelaCalendario`, `TelaFoco`, `TelaTarefa`, `TelaNotificacoes`, `TelaPerfil`).
+- [ ] Construir as interfaces definitivas das demais telas (`TelaHoje`, `TelaFoco`, `TelaTarefa`, `TelaNotificacoes`, `TelaPerfil`).
 
 ---
 
@@ -80,27 +82,37 @@ Camada responsável por orquestrar o estado e coordenar a comunicação entre a 
 
 ---
 
-### 3.5. Widgets Reutilizáveis (`Development/lib/widgets/`)
-Componentes visuais modulares desenhados para manter consistência visual em todas as telas:
+### 3.5. Tema e Identidade Visual (`Development/lib/tema/`)
+Camada oficial de Design Tokens (cores semânticas, superfícies, tipografia e tema Material 3) do **FlowTask**:
 
-| Arquivo | Widget | Responsabilidade | Status |
+| Arquivo | Classe | Responsabilidade | Status |
 | :--- | :--- | :--- | :---: |
-| [`Development/lib/widgets/botao.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/botao.dart) | `Botao` (`TipoBotao`) | Botão reutilizável em formato pílula com variantes `primario` (`#5B4BDB`), `secundario` (`#EDE9FE`) e `contorno` (`#E5E7EB`), suporte a ícone opcional e controle de largura (`larguraTotal`). | ✅ Concluído |
-| [`Development/lib/widgets/campo_texto.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/campo_texto.dart) | `CampoTexto` | Campo de formulário com container arredondado, rótulo superior interno, suporte a `TextEditingController`, múltiplas linhas, modo `somenteLeitura` com `onTap` (para seletores de data/hora/dropdown) e `iconeSufixo`. | ✅ Concluído |
-| [`Development/lib/widgets/card_tarefa.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/card_tarefa.dart) | `CardTarefa` (`PrioridadeTarefa`, `StatusTarefa`) | Cartão de tarefa com exibição de horário, duração estimada, tempo usado, título (com tachado quando concluída), botão interativo de status e badges coloridos de prioridade (`baixa`, `media`, `alta`) e status (`pendente`, `concluida`, `atrasada`, `pausada`). | ✅ Concluído |
-| [`Development/lib/widgets/indicador_progresso.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/indicador_progresso.dart) | `IndicadorProgresso` | Card lilás (`#EDE9FE`) de resumo do dia com contagem de tarefas concluídas, cálculo automático de percentual, barra `LinearProgressIndicator` estilizada e colunas de tempo `Planejado` vs. `Realizado`. | ✅ Concluído |
+| [`Development/lib/tema/cores.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/cores.dart) | `CoresApp` | Constantes oficiais da paleta de cores do FlowTask (fundos, textos, roxo primário, verde de sucesso/baixa prioridade, âmbar de média prioridade/pausa e coral de alta prioridade/atraso). | ✅ Concluído |
+| [`Development/lib/tema/tema_app.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/tema_app.dart) | `TemaApp` | Configuração centralizada do `ThemeData` (`TemaApp.claro`), incluindo `ColorScheme`, `TextTheme`, `AppBarTheme`, `CardThemeData`, `InputDecorationTheme` e `ElevatedButtonThemeData`. | ✅ Concluído |
 
 ---
 
-### 3.6. Telas e Navegação (`Development/lib/main.dart` & `Development/lib/telas/`)
+### 3.6. Widgets Reutilizáveis (`Development/lib/widgets/`)
+Componentes visuais modulares padronizados com `CoresApp` e `TemaApp`:
+
+| Arquivo | Widget | Responsabilidade | Status |
+| :--- | :--- | :--- | :---: |
+| [`Development/lib/widgets/botao.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/botao.dart) | `Botao` (`TipoBotao`) | Botão reutilizável em formato pílula com variantes `primario` (`CoresApp.primaria`), `secundario` (`CoresApp.primariaSuave`) e `contorno` (`CoresApp.borda`), suporte a ícone opcional e controle de largura (`larguraTotal`). | ✅ Concluído |
+| [`Development/lib/widgets/campo_texto.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/campo_texto.dart) | `CampoTexto` | Campo de formulário com container arredondado (`CoresApp.superficie`), rótulo superior interno, suporte a `TextEditingController`, múltiplas linhas, modo `somenteLeitura` com `onTap` e `iconeSufixo`. | ✅ Concluído |
+| [`Development/lib/widgets/card_tarefa.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/card_tarefa.dart) | `CardTarefa` (`PrioridadeTarefa`, `StatusTarefa`) | Cartão de tarefa com exibição de horário, duração estimada, tempo usado, título (com tachado quando concluída), botão interativo de status e badges coloridos (`CoresApp.sucesso*`, `CoresApp.alerta*`, `CoresApp.erro*`, `CoresApp.primaria*`). | ✅ Concluído |
+| [`Development/lib/widgets/indicador_progresso.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/widgets/indicador_progresso.dart) | `IndicadorProgresso` | Card lilás (`CoresApp.primariaSuave`) de resumo do dia com contagem de tarefas concluídas, cálculo automático de percentual, barra `LinearProgressIndicator` estilizada e colunas de tempo `Planejado` vs. `Realizado`. | ✅ Concluído |
+
+---
+
+### 3.7. Telas e Navegação (`Development/lib/main.dart` & `Development/lib/telas/`)
 Estrutura de navegação e telas principais da aplicação:
 
 | Arquivo | Widget | Responsabilidade | Status |
 | :--- | :--- | :--- | :---: |
-| [`Development/lib/main.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/main.dart) | `MyApp` | Inicializa o `MaterialApp` com tema base e define `Menu` como tela inicial (`home`). | ✅ Configurado |
+| [`Development/lib/main.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/main.dart) | `FlowTaskApp` | Inicializa o `MaterialApp` com `title: 'FlowTask'`, `theme: TemaApp.claro` e define `Menu` como tela inicial (`home`). | ✅ Configurado |
 | [`Development/lib/telas/menu.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/menu.dart) | `Menu` | Navegação principal (`StatefulWidget`) com menu expansivo lateral (`Drawer`) acionado pelo ícone de 3 riscos (`Icons.menu_rounded`), atalho de notificações na `AppBar`, botão rápido "Adicionar tarefa" (`TelaTarefa`) e alternância via `IndexedStack` entre `TelaHoje`, `TelaCalendario`, `TelaFoco`, `TelaNotificacoes` e `TelaPerfil`. | ✅ Concluído |
 | [`Development/lib/telas/tela_hoje.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_hoje.dart) | `TelaHoje` | Visão do planejamento diário, lista de tarefas do dia e progresso. | 🚧 Esqueleto (`StatelessWidget`) |
-| [`Development/lib/telas/tela_calendario.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_calendario.dart) | `TelaCalendario` | Calendário interativo e listagem de tarefas da data selecionada. | 🚧 Esqueleto (`StatelessWidget`) |
+| [`Development/lib/telas/tela_calendario.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_calendario.dart) | `TelaCalendario` | Calendário mensal interativo (`TableCalendar`), marcadores de dias com tarefas, resumo de contadores por status, listagem de tarefas ativas com `CardTarefa` e seção de tarefas concluídas com soma de minutos realizados. | ✅ Concluído |
 | [`Development/lib/telas/tela_foco.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_foco.dart) | `TelaFoco` | Cronômetro e acompanhamento da tarefa em execução. | 🚧 Esqueleto (`StatelessWidget`) |
 | [`Development/lib/telas/tela_tarefa.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_tarefa.dart) | `TelaTarefa` | Formulário de criação e edição de tarefas. | 🚧 Esqueleto (`StatelessWidget`) |
 | [`Development/lib/telas/tela_notificacoes.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_notificacoes.dart) | `TelaNotificacoes` | Configuração de preferências de lembretes e notificações. | 🚧 Esqueleto (`StatelessWidget`) |
@@ -108,7 +120,7 @@ Estrutura de navegação e telas principais da aplicação:
 
 ---
 
-### 3.7. Configuração de Dependências, Linter e Plataformas (Android & Web)
+### 3.8. Configuração de Dependências, Linter e Plataformas (Android & Web)
 - **Dependências (`Development/pubspec.yaml`):**
   - `flutter_local_notifications: ^22.3.1` — Disparo e agendamento de notificações locais.
   - `flutter_web_plugins: sdk: flutter` — Resolução do `web_plugin_registrant.dart` exigido pelo `flutter_local_notifications_web` ao compilar para navegador.
@@ -140,20 +152,38 @@ Estrutura de navegação e telas principais da aplicação:
 6. **Navegação Principal (`Menu` com `Drawer` Expansivo):** Implementação completa de [`Development/lib/telas/menu.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/menu.dart) utilizando `Drawer` lateral acionado pelo ícone de 3 riscos (`Icons.menu_rounded`), paleta FlowTask (`#5B4BDB` / `#EDE9FE`), botão rápido "Adicionar tarefa" e `IndexedStack` preservando o estado das 5 abas principais.
 7. **Design System e Widgets Reutilizáveis (`Development/lib/widgets/`):** Implementação completa dos 4 componentes visuais padronizados (`Botao`, `CampoTexto`, `CardTarefa` e `IndicadorProgresso`) seguindo a prancha `Design/FlowTask · Componentes reutilizáveis.jpg`.
 8. **Habilitação da Plataforma Web (`Development/web/`):** Inclusão do target Web no projeto Flutter para facilitar execução e testes rápidos de interface no navegador (`Chrome`/`Edge`).
+9. **Tela de Calendário (`Development/lib/telas/tela_calendario.dart`):** Implementação completa de `TelaCalendario` com `TableCalendar`, indicadores de dias com tarefas, resumo diário dinâmico, listagem de tarefas ativas via `CardTarefa` e seção de tarefas concluídas com totalização de tempo realizado.
+10. **Tema Oficial Centralizado (`CoresApp` & `TemaApp`) e Guardião de Tema (`guardiao-tema`):** Integração de `Development/lib/tema/cores.dart` e `Development/lib/tema/tema_app.dart` (commit `5f0c378` de João Cuba), criação da skill `.agents/skills/guardiao-tema/SKILL.md` e refatoração 100% padronizada de todos os widgets e telas para eliminar cores hardcoded.
 
 ### 🚧 Em Andamento / Ajustes Locais (Working Tree)
-- **Navegação Principal (`Development/lib/telas/menu.dart`), Widgets (`Development/lib/widgets/`) e Target Web (`Development/web/`):** Implementados localmente e validados com `flutter analyze` sem erros.
-- **Automação de Documentação de Sprint (`AGENTS.md` e `.agents/skills/documentador-sprint/SKILL.md`):**
-  - Adicionados arquivos locais de diretrizes e skill para manter este relatório `docs/sprint_atual.md` sempre atualizado de forma incremental a cada entrega de código.
+- **Tema Centralizado (`Development/lib/tema/`), Navegação Principal (`menu.dart`), Tela de Calendário (`tela_calendario.dart`), Widgets (`Development/lib/widgets/`) e Target Web (`Development/web/`):** Unificados com `CoresApp`/`TemaApp` e validados com `flutter analyze` sem nenhum alerta.
+- **Automação de Governança via Agentes (`AGENTS.md`, `documentador-sprint` e `guardiao-tema`):**
+  - Diretrizes ativas garantindo padronização de cores e documentação incremental contínua.
 
 ### 📌 Próximos Passos (Backlog Imediato da Sprint)
 1. **Modelagem e Banco de Dados:** Implementar os campos e métodos de serialização em `Tarefa` e `Configuracoes`, além da criação das tabelas SQLite em `BancoService`.
-2. **Fluxo de Tarefas (`ControlTarefa`, `TelaHoje`, `TelaTarefa`):** Construir as telas `TelaHoje` e `TelaTarefa` utilizando os novos widgets (`IndicadorProgresso`, `CardTarefa`, `CampoTexto`, `Botao`) e integrar ao `ControlTarefa` / SQLite.
-3. **Calendário, Modo Foco e Notificações:** Integrar `table_calendar` em `TelaCalendario`, temporizador em `ControlFoco`/`TelaFoco` e lembretes em `NotificacaoService`.
+2. **Fluxo de Tarefas (`ControlTarefa`, `TelaHoje`, `TelaTarefa`):** Construir as telas `TelaHoje` e `TelaTarefa` utilizando `CoresApp`/`TemaApp` e os widgets (`IndicadorProgresso`, `CardTarefa`, `CampoTexto`, `Botao`), integrando ao `ControlTarefa` / SQLite.
+3. **Modo Foco, Notificações e Perfil:** Implementar temporizador em `ControlFoco`/`TelaFoco`, configurações de lembretes em `TelaNotificacoes`/`NotificacaoService` e `TelaPerfil`.
 
 ---
 
 ## 5. Registro Incremental (Changelog da Sprint)
+
+### 📅 28/10/2026 (Incremento #7) — Integração do Tema Centralizado (`CoresApp` / `TemaApp`) e Auditoria do Guardião de Tema
+- **Arquivos integrados e criados:**
+  - [`Development/lib/tema/cores.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/cores.dart) (`CoresApp`) e [`Development/lib/tema/tema_app.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/tema/tema_app.dart) (`TemaApp.claro`), oriundos do commit `5f0c378` (*João Cuba*: `feat: define tema e paleta de cores do FlowTask`), além da atualização de [`Development/lib/main.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/main.dart) (`FlowTaskApp`).
+  - Criação da skill [`.agents/skills/guardiao-tema/SKILL.md`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/.agents/skills/guardiao-tema/SKILL.md) e atualização de [`AGENTS.md`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/AGENTS.md) instituindo o subagente `guardiao-tema`.
+- **Refatoração completa de fidelidade visual:**
+  - Todos os 4 widgets (`botao.dart`, `campo_texto.dart`, `indicador_progresso.dart`, `card_tarefa.dart`) e as 2 telas implementadas (`menu.dart`, `tela_calendario.dart`) foram auditados e refatorados pelo `guardiao-tema` para consumir exclusivamente `CoresApp` e `TemaApp`, eliminando 100% das cores hardcoded (`Color(0xFF...)`) fora de `cores.dart`.
+
+### 📅 28/10/2026 (Incremento #6) — Implementação da Tela de Calendário (`tela_calendario.dart`)
+- **Componente implementado:** [`Development/lib/telas/tela_calendario.dart`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/lib/telas/tela_calendario.dart) (`TelaCalendario` convertida para `StatefulWidget` seguindo `Design/Calendário.jpg`).
+- **Detalhes técnicos da entrega:**
+  - Cabeçalho com título **"Calendário"**, subtítulo *"Um dia de cada vez"* e botão circular `+` (`#EDE9FE` / `#5B4BDB`) que abre `TelaTarefa`.
+  - Card de calendário mensal interativo utilizando `TableCalendar` (`package:table_calendar/table_calendar.dart`), com cabeçalho de mês/ano formatado em Português (`Outubro 2026`), semana iniciando na segunda-feira (`S T Q Q S S D`), círculo roxo (`#5B4BDB`) para o dia selecionado, marcadores de ponto roxo/branco sob os dias com tarefas e legenda inferior (*"Dias com ponto têm tarefas"*).
+  - Resumo dinâmico do dia selecionado (ex.: *"Quinta, 8 de outubro"* e *"6 tarefas · 2 concluídas · 2 pendentes · 1 pausada · 1 atrasada"*).
+  - Listagem de tarefas ativas do dia utilizando o componente reutilizável `CardTarefa` com alternância interativa de conclusão (`onAlternarStatus`).
+  - Seção **"Concluídas"** com cálculo dinâmico do total de minutos realizados e cards compactos verdes (`#E6F4EA` fundo e `#2E6F40` texto/ícone) fiéis ao protótipo.
 
 ### 📅 28/10/2026 (Incremento #5) — Correção de Dependência SDK para Build Web (`pubspec.yaml`)
 - **Arquivo ajustado:** [`Development/pubspec.yaml`](file:///c:/Users/willi/Desktop/FATEC/Quinto%20Ciclo/LB%20Eng%20Software/Projeto%20P2/ToDoList/Development/pubspec.yaml).
